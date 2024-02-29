@@ -1,0 +1,16 @@
+import numpy as np
+import pandas as pd
+A = np.arange(10, 19).reshape((3, 3))
+print ("Given Matrix A is\n",A)
+print ('sum of cols')
+print(np.apply_along_axis(np.sum, axis=0, arr=A))
+print ('sum of rows')
+print(np.apply_along_axis(np.sum, axis=1, arr=A))
+print ('Mean of cols')
+print(np.apply_along_axis(np.mean, axis=0, arr=A))
+print ('Mean of rows')
+print(np.apply_along_axis(np.mean, axis=1, arr=A))
+print ('SD of cols')
+print(np.apply_along_axis(np.std, axis=0, arr=A))
+print ('SD of rows')
+print(np.apply_along_axis(np.std, axis=1, arr=A))
