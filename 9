@@ -1,0 +1,20 @@
+from collections import Counter
+
+def firstRepeat(input):
+    # first split given string separated by space into words
+    words = input.split(' ')
+    print(words)
+    # now convert list of words into dictionary
+    word_count = Counter(words)
+    print(word_count)
+    # traverse list of words and check which first word
+    # has frequency > 1
+    for word in words:
+        if word_count[word] > 1:
+            print(word)
+            return
+
+# Driver program
+if __name__ == "__main__":
+    input_str = 'Ravi had been saying that he had been there had'
+    firstRepeat(input_str)
