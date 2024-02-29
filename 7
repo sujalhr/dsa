@@ -1,0 +1,9 @@
+num = 123456
+pos1 = 1
+pos2 = 3
+s = str(num)
+ls = list(s)
+ls[pos1], ls[pos2] = ls[pos2], ls[pos1]
+new_s = "".join(ls)
+new_num = int(new_s)
+print("oldnum=", num,"newnum=", new_num)
