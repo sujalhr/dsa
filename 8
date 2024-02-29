@@ -1,0 +1,24 @@
+l = ['This', 'is', 'a', 'list']
+print( [x.capitalize() for x in l] )
+
+l = ['This', 'is', 'a', 'hellolist', 'bOoM']
+print ([x[0].upper() + x[1:] for x in l] )
+
+s = "python"
+print("Original string:")
+print(s)
+print("After capitalizing first letter:")
+print(s.capitalize())
+
+print(s)
+result = s[0].upper() + s[1:]
+print("After capitalizing first letter:")
+print(result)
+
+print(s)
+print("After capitalizing first letter:")
+print(str.title(s)) 
+
+inpt = ['fun', 'Foo', 'BaR']
+lst = [x.upper() for x in inpt]
+print(lst)
