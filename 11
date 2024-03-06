@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include<stdlib.h>
-int a[20][20],q[20],visited[20],reach[10],n,i,j,f=0,r=0; void bfs(int v)
+int a[20][20],q[20],visited[20],reach[10],n,i,j,f=0,r=0;
+void bfs(int v)
 {
 visited[v]=1; q[++r]=v; 
 while(f!=r)
