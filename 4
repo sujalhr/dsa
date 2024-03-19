@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#define MAX 100
+
+char stack[MAX];
+int top = -1;
+
+void push(char item);
+char pop();
+int isOperator(char symbol);
+int precedence(char symbol);
+void infixToPostfix(char infixExpression[], char postfixExpression[]);
+
+int main() {
+    char infixExpression[MAX], postfixExpression[MAX];
+    printf("\nEnter an Infix Expression: ");
+    scanf("%s", infixExpression);
+    infixToPostfix(infixExpression, postfixExpression);
+    printf("Postfix Expression: %s\n\n", postfixExpression);
+    return 0;
+}
+
+void push(char item) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow. Cannot push element.\n");
+        exit(1);
+    } else {
+        top++;
+        stack[top] = item;
+    }
+}
+
+char pop() {
+    if (top == -1) {
+        printf("Stack Underflow. Cannot pop element.\n");
+        exit(1);
+    } else {
+        return stack[top--];
+    }
+}
+
+int isOperator(char symbol) {
+    return (symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/' || symbol == '%' || symbol == '^');
+}
+
+int precedence(char symbol) {
+    switch (symbol) {
+        case '^':
+            return 3;
+        case '*':
+        case '/':
+        case '%':
+            return 2;
+        case '+':
+        case '-':
+            return 1;
+        default:
+            return 0;
+    }
+}
+
+
+void infixToPostfix(char infixExpression[], char postfixExpression[]) {
+    int i, j;
+    char symbol, temp;
+    i = j = 0;
+    while (infixExpression[i] != '\0') {
+        symbol = infixExpression[i];
+        if (isalnum(symbol)) {
+            postfixExpression[j++] = symbol;
+        } else if (symbol == '(') {
+            push(symbol);
+        } else if (symbol == ')') {
+            while (stack[top] != '(') {
+                temp = pop();
+                postfixExpression[j++] = temp;
+            }
+            pop(); // Discard the '('
+        } else if (isOperator(symbol)) {
+            while (precedence(symbol) <= precedence(stack[top]) && top != -1) {
+                temp = pop();
+                postfixExpression[j++] = temp;
+            }
+            push(symbol);
+        }
+        i++;
+    }
+    while (top != -1) {
+        temp = pop();
+        postfixExpression[j++] = temp;
+    }
+    postfixExpression[j] = '\0';
+}
