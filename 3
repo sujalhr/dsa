@@ -1,23 +1,27 @@
+
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 #define MAX 3
 int s[MAX];
 int top = -1;
 
 void push(int item);
 int pop();
-void palindrome();
+bool palindrome();
 void display();
+bool isFull();
+bool isEmpty();
 
 void main() {
     int choice, item;
     while (1) {
         printf("\n\n\n\n~~~~~~Menu~~~~~~ : ");
-        printf("\n=>1.Push an Element to Stack and check Overflow  ");
-        printf("\n=>2.Pop an Element from Stack and check Underflow ");
-        printf("\n=>3.Palindrome demo ");
-        printf("\n=>4.Display ");
-        printf("\n=>5.Exit");
+        printf("\n1.Push an Element to Stack and check Overflow  ");
+        printf("\n2.Pop an Element from Stack and check Underflow ");
+        printf("\n3.Palindrome ");
+        printf("\n4.Display ");
+        printf("\n5.Exit");
         printf("\nEnter your choice: ");
         scanf("%d", & choice);
         switch (choice) {
@@ -77,23 +81,25 @@ void display() {
         printf("| %d |\n", s[i]);
 }
 
-void palindrome() {
-    int flag = 1, i;
-    printf("\nStack content are:\n");
-    for (i = top; i >= 0; i--)
-        printf("| %d |\n", s[i]);
-    printf("\nReverse of stack content are:\n");
-    for (i = 0; i <= top; i++)
-        printf("| %d |\n", s[i]);
-    for (i = 0; i <= top / 2; i++) {
-        if (s[i] != s[top - i]) {
-            flag = 0;
-            break;
+bool palindrome() {
+    if (isEmpty()) {
+        printf("Stack is empty. Cannot check palindrome.\n");
+        return false;
+    }
+
+    int i, j;
+    for (i = 0, j = top; i < j; i++, j--) {
+        if (s[i] != s[j]) {
+            return false;
         }
     }
-    if (flag == 1) {
-        printf("\nIt is palindrome number");
-    } else {
-        printf("\nIt is not a palindrome number");
-    }
+    return true;
+}
+
+bool isFull() {
+    return top == MAX - 1;
+}
+
+bool isEmpty() {
+    return top == -1;
 }
