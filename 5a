@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include<ctype.h>
+#define MAX_SIZE 20
+
+int top = -1;
+int s[MAX_SIZE];
+
+void push(int item) {
+    top++;
+    s[top] = item;
+}
+
+int pop() {
+    int item;
+    item = s[top];
+    top--;
+    return item;
+}
+
+int main() {
+    int i, op1, op2, res;
+    char postfix[90], symb;
+
+    printf("\nEnter a valid postfix expression:\n");
+    scanf("%s", postfix);
+
+    for (i = 0; postfix[i] != '\0'; i++) {
+        symb = postfix[i];
+        if (isdigit(symb)) {
+            push(symb - '0');
+        } else {
+            op2 = pop();
+            op1 = pop();
+            switch (symb) {
+                case '+':
+                    push(op1 + op2);
+                    break;
+                case '-':
+                    push(op1 - op2);
+                    break;
+                case '*':
+                    push(op1 * op2);
+                    break;
+                case '/':
+                    push(op1 / op2);
+                    break;
+                case '%':
+                    push(op1 % op2);
+                    break;
+                case '^':
+                    push(pow(op1, op2));
+                    break;
+                default:
+                    printf("Invalid operator\n");
+                    return 1;
+            }
+        }
+    }
+    res = pop();
+    printf("\n Result = %d\n", res);
+    return 0;
+}
