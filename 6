@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define MAX 5
+
+void insert(int);
+int delete(void);
+void display(void);
+
+int a[MAX], f = 0, r = -1, count = 0;
+
+int main() {
+    int ch, item, itemdel;
+    
+    printf("Queue Operations Demo");
+    
+    while (1) {
+        printf("\nEnter Your Choice: ");
+        printf("1. Insert\t2. Delete\t3. Display\t4. Exit\n");
+        scanf("%d", &ch);
+
+        switch (ch) {
+            case 1:
+                printf("Enter the item: ");
+                scanf("%d", &item);
+                insert(item);
+                break;
+            case 2:
+                itemdel = delete();
+                if (itemdel)
+                    printf("The deleted item is %d\n", itemdel);
+                else
+                    printf("Queue underflow\n");
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+        }
+    }
+
+    return 0;
+}
+
+void insert(int item) {
+    if (count == MAX)
+        printf("Queue Overflow\n");
+    else {
+        r = (r + 1) % MAX;
+        a[r] = item;
+        count++;
+    }
+}
+
+int delete(void) {
+    int itemdel;
+    if (count == 0)
+        return 0;
+    else {
+        itemdel = a[f];
+        f = (f + 1) % MAX;
+        count--;
+
+        return (itemdel);
+    }
+}
+
+void display(void) {
+    int i, j;
+    if (count == 0)
+        printf("Queue empty\n");
+    else {
+        i = f;
+        for (j = 1; j <= count; j++) {
+            printf("%d\t", a[i]);
+            i = (i + 1) % MAX;
+        }
+        printf("\n");
+    }
+}
