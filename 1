@@ -17,7 +17,7 @@ void create(struct Day *day) {
     printf("Enter the date:");
     scanf("%d", &day->date);
     printf("Enter the activity for the day:");
-    scanf(" %[^\n]s", day->activity); 
+    scanf(" %s", day->activity); 
 }
 
 void read(struct Day *calendar, int size) {
